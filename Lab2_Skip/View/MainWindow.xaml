@@ -1,0 +1,81 @@
+﻿<Window x:Class="KMA.ProgrammingInCSharp2025.Lab2_Skip.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:KMA.ProgrammingInCSharp2025.Lab2_Skip"
+        Title="Zodiac Sign Calculator" Height="450" Width="800" Background="Black">
+
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontWeight="Bold" FontSize="40" Foreground="Gold">Zodiac sign calculator</TextBlock>
+
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 0 0 0" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14">Firs name</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsInputEnabled}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 155 0" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14">Email</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="200" Height="25" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsInputEnabled}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14">Last Name</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 5 0 0" Width="200" Height="25" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsInputEnabled}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 105 0" FontFamily="Georgia" FontWeight="Bold" Foreground="Gold" FontSize="14">Date of birth</TextBlock>
+        <DatePicker Name="DatePickerZodiac" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 0 0" Width="200" Background="Gold" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsInputEnabled}" />
+
+
+        <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="30" Background="Gold" Content="Proceed" Command="{Binding ProceedCommand}" IsEnabled="{Binding IsProceedEnabled}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="10"  BorderBrush="Black"  BorderThickness="1">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
+        </Button>
+
+        <TextBlock Name="Birthday" Grid.Row="3" Grid.Column="1" Width="500" Height="100" Foreground="Gold" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" Margin="10" Visibility="{Binding IsBirthdayVisible}">Happy birthday! </TextBlock>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="80" Visibility="{Binding ShowData}" Text="FirstName: "/>
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="115" Margin="85 0 0 0" Visibility="{Binding ShowData}" Text="{Binding FirstName}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="50" Margin="0 0 150 0" Visibility="{Binding ShowData}" Text="Email: "/>
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="150"  Visibility="{Binding ShowData}" Text="{Binding Email}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="80" Visibility="{Binding ShowData}" Text="LastName: "/>
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="115" Margin="85 0 0 0" Visibility="{Binding ShowData}" Text="{Binding LastName}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="200" Visibility="{Binding ShowData}" Text="{Binding Birthday}"/>
+        
+        
+        
+        <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="200" Visibility="{Binding ShowData}" Text="{Binding IsAdultStr}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="200" Visibility="{Binding ShowData}" Text="{Binding IsBirthdayStr}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="200" Visibility="{Binding ShowData}" Text="{Binding ChineseSign}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Gold" FontFamily="Georgia" FontWeight="Bold" FontSize="14" Width="200" Visibility="{Binding ShowData}" Text="{Binding SunSign}"/>
+
+
+    </Grid>
+</Window>
