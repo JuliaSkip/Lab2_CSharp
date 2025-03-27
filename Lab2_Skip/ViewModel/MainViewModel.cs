@@ -207,20 +207,13 @@ namespace KMA.ProgrammingInCSharp2025.Lab2_Skip
                 Task.Delay(1000).Wait();
 
                 Person person = new Person(FirstName, LastName, Email, SelectedDate.Value);
-                int isValid = person.ValidateAge();
-
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    if (isValid == -1)
+                    try
                     {
-                        MessageBox.Show("Sorry, you are not born yet");
-                    }
-                    else if (isValid == 1)
-                    {
-                        MessageBox.Show("Sorry, you are dead");
-                    }
-                    else
-                    {
+                        person.ValidateAge();
+                        person.ValidateEmail(person.Email);
+
                         IsAdultStr = $"IsAdult: {person.IsAdult}";
                         IsBirthdayStr = $"IsBirthday: {person.IsBirthday}";
                         ChineseSign = $"ChineseSign: {person.ChineseSign}";
@@ -233,6 +226,18 @@ namespace KMA.ProgrammingInCSharp2025.Lab2_Skip
                             IsBirthdayVisible = Visibility.Visible;
                         }
                         ShowData = Visibility.Visible;
+                    }
+                    catch (BirthdayInFutureException)
+                    {
+                        MessageBox.Show("Sorry, you are not born yet");
+                    }
+                    catch (DeadPersonException)
+                    {
+                        MessageBox.Show("Sorry, you are dead");
+                    }
+                    catch (InvalidEmailException)
+                    {
+                        MessageBox.Show("Please, enter a valid email address");
                     }
                 });
             });

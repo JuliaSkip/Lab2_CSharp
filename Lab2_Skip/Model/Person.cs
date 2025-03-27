@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Runtime.InteropServices.Swift;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -194,20 +195,62 @@ namespace KMA.ProgrammingInCSharp2025.Lab2_Skip.Model
             return false;
         }
 
-        public int ValidateAge()
+        public void ValidateEmail(string email)
+        {
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            if (!Regex.IsMatch(email, pattern))
+            {
+                throw new InvalidEmailException(email);
+            }
+        }
+
+        public void ValidateAge()
         {
             int age = CountAge();
 
             if (age > 135)
             {
-                return 1;
+                throw new DeadPersonException(age);
             }
             if (age < 0)
             {
-                return -1;
+                throw new BirthdayInFutureException(age);
             }
-            return 0;
         }
 
+    }
+    [Serializable]
+    class InvalidEmailException : Exception
+    {
+        public InvalidEmailException() { }
+
+        public InvalidEmailException(string email)
+            : base(String.Format("Invalid Email: {0}", email))
+        {
+
+        }
+    }
+    [Serializable]
+    class BirthdayInFutureException : Exception
+    {
+        public BirthdayInFutureException() { }
+
+        public BirthdayInFutureException(int age)
+        : base(String.Format("Invalid age: {0}. You must be born first.", age))
+        {
+
+        }
+    }
+    [Serializable]
+    class DeadPersonException : Exception
+    {
+        public DeadPersonException() { }
+
+        public DeadPersonException(int age)
+        : base(String.Format("Invalid age: {0}. You cannot be older than 135.", age))
+        {
+
+        }
     }
 }
